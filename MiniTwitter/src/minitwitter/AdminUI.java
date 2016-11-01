@@ -53,9 +53,15 @@ public class AdminUI extends javax.swing.JPanel {
         treeView.setRows(5);
         jScrollPane1.setViewportView(treeView);
 
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
         userID.setColumns(20);
         userID.setRows(5);
         jScrollPane2.setViewportView(userID);
+
+        GroupId.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        GroupId.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         jTextArea3.setColumns(20);
         jTextArea3.setRows(5);
@@ -165,12 +171,13 @@ public class AdminUI extends javax.swing.JPanel {
 
     private void openUserViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openUserViewActionPerformed
         // TODO add your handling code here:
-        f = new JFrame();
-        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        f.add(new UserUI());      //adds the start panel
-        f.pack();
-        f.setLocationRelativeTo(null); //centers the window
-        f.setVisible(true);
+//        f = new JFrame();
+//        f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//        f.add(new UserUI());      //adds the start panel
+//        f.pack();
+//        f.setLocationRelativeTo(null); //centers the window
+//        f.setVisible(true);
+        user.setVisible(true);
     }//GEN-LAST:event_openUserViewActionPerformed
 
 
