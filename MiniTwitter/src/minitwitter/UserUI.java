@@ -14,7 +14,7 @@ import javax.swing.WindowConstants;
  * @author VANSKEES
  */
 public class UserUI extends javax.swing.JPanel {
-
+JFrame f;
     /**
      * Creates new form UserUI
      */
@@ -44,6 +44,9 @@ public class UserUI extends javax.swing.JPanel {
         newsFeed = new javax.swing.JTextArea();
         followButton = new javax.swing.JButton();
 
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
         userId.setColumns(20);
         userId.setRows(5);
         jScrollPane1.setViewportView(userId);
@@ -51,6 +54,9 @@ public class UserUI extends javax.swing.JPanel {
         currentFollowing.setColumns(20);
         currentFollowing.setRows(5);
         jScrollPane3.setViewportView(currentFollowing);
+
+        jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         tweetMessage.setColumns(20);
         tweetMessage.setRows(5);
