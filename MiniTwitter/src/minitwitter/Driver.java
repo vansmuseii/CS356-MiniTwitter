@@ -15,14 +15,7 @@ import javax.swing.SwingUtilities;
  */
 public class Driver {
     
-    JFrame f;
     public Driver(){
-        f = new JFrame();
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.add(new AdminUI());      //adds the start panel
-        f.pack();
-        f.setLocationRelativeTo(null); //centers the window
-        f.setVisible(true);
     }
         
     /**
@@ -32,10 +25,11 @@ public class Driver {
      */
     public static void main(String[] args) throws IOException{
         // TODO code application logic here
+        AdminUI s = AdminUI.getInstance();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Driver();
+                s.setVisible(true);
             }
         });
     } 
