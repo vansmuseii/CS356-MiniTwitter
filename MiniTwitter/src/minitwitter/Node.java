@@ -9,6 +9,11 @@ package minitwitter;
  *
  * @author VANSKEES
  */
-public interface Visitor {
-    void visit(Node node);
+public abstract class Node {
+    
+    	public abstract void setUserID(String id);
+
+	public abstract String getUserID();
+
+	public abstract String toString();
 }

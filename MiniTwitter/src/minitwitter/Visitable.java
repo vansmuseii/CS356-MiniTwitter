@@ -9,6 +9,6 @@ package minitwitter;
  *
  * @author VANSKEES
  */
-public interface Visitor {
-    void visit(Node node);
+public interface Visitable {
+    void accept(Visitor visitor);
 }
