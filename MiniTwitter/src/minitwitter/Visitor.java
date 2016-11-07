@@ -10,5 +10,5 @@ package minitwitter;
  * @author VANSKEES
  */
 public interface Visitor {
-    void visit(Node node);
+    void visit(Object n);
 }

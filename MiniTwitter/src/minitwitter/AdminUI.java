@@ -6,6 +6,9 @@
 package minitwitter;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
 
 /**
  *
@@ -58,6 +61,11 @@ public class AdminUI extends javax.swing.JFrame {
         setLocationByPlatform(true);
 
         addUserButton.setText("Add User");
+        addUserButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addUserButtonActionPerformed(evt);
+            }
+        });
 
         addGroupButton.setText("Add Group");
 
@@ -135,6 +143,29 @@ public class AdminUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void addUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserButtonActionPerformed
+        // TODO add your handling code here:
+        DefaultMutableTreeNode parentNode = null;
+        DefaultMutableTreeNode child = null;
+        TreePath path = twitterTree.getSelectionPath();
+        System.out.println(path);
+
+        if (path == null) {
+            //There is no selection. Default to the root node.
+            // Fix to where we we just tell user that they must choose a group
+            //parentNode = rootNode;
+        } else {
+            System.out.println(userIDText.getText());
+            parentNode = (DefaultMutableTreeNode) (path.getLastPathComponent());
+            child = ((TwitterTree)twitterTree.getModel()).addLeaf(parentNode, userIDText.getText());
+            twitterTree.scrollPathToVisible(new TreePath(child.getPath()));
+            ((DefaultTreeModel)twitterTree.getModel()).reload();
+
+        }
+        
+
+    }//GEN-LAST:event_addUserButtonActionPerformed
 
     /**
      * @param args the command line arguments

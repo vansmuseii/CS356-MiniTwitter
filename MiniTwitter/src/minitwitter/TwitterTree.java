@@ -5,7 +5,6 @@
  */
 package minitwitter;
 
-import java.util.Map;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
@@ -15,17 +14,19 @@ import javax.swing.tree.TreeNode;
  * @author VANSKEES
  */
 public class TwitterTree extends DefaultTreeModel implements Visitable{
-    private Map<String,Node> map;
     
     public TwitterTree(TreeNode root) {
         super(root);
     }
     
+    public DefaultMutableTreeNode addLeaf(DefaultMutableTreeNode group, String name){
+        group.add(new DefaultMutableTreeNode ("name"));
+        return group;
+    }    
+    
     @Override
     public void accept(Visitor visitor) {
-        for (Map.Entry<String, Node> entry : map.entrySet()){
-			  visitor.visit(entry.getValue());
-		}
+      
     }
-    
+
 }
