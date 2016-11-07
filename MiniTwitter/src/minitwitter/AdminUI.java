@@ -7,12 +7,13 @@ package minitwitter;
 
 import java.awt.Component;
 import javax.swing.Icon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 /**
@@ -99,6 +100,11 @@ public class AdminUI extends javax.swing.JFrame {
         });
 
         openUserViewButton.setText("Open User View");
+        openUserViewButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openUserViewButtonActionPerformed(evt);
+            }
+        });
 
         showUserTotalButton.setText("Show User Total");
 
@@ -180,11 +186,12 @@ public class AdminUI extends javax.swing.JFrame {
         DefaultMutableTreeNode child = null;
         TreePath path = twitterTree.getSelectionPath();
         if (path == null) {
-            //There is no selection. Default to the root node.
-            // Fix to where we we just tell user that they must choose a group
-            //parentNode = rootNode;
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame,
+                "Please select group to add user",
+                "Selection Error",
+                JOptionPane.ERROR_MESSAGE);
         } else {
-            System.out.println(userIDText.getText());
             parentNode = (DefaultMutableTreeNode) (path.getLastPathComponent());
             child = ((TwitterTree) twitterTree.getModel()).addLeaf(parentNode, userIDText.getText());
             twitterTree.scrollPathToVisible(new TreePath(child.getPath()));
@@ -197,9 +204,12 @@ public class AdminUI extends javax.swing.JFrame {
         DefaultMutableTreeNode group = null;
         TreePath path = twitterTree.getSelectionPath();
         if (path == null) {
-        
-            }
-        else{
+            JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame,
+                "Please select group to add new group",
+                "Selection Error",
+                JOptionPane.ERROR_MESSAGE);
+        } else {
             parentNode = (DefaultMutableTreeNode) (path.getLastPathComponent());
             group = ((TwitterTree) twitterTree.getModel()).addGroup(parentNode, groupIDText.getText());
             twitterTree.scrollPathToVisible(new TreePath(group.getPath()));
@@ -207,6 +217,23 @@ public class AdminUI extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_addGroupButtonActionPerformed
+
+    private void openUserViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openUserViewButtonActionPerformed
+        DefaultMutableTreeNode leaf = null;
+        TreePath path = twitterTree.getSelectionPath();
+        leaf = (DefaultMutableTreeNode) path.getLastPathComponent();
+        if(leaf.getAllowsChildren()){
+             JFrame frame = new JFrame();
+            JOptionPane.showMessageDialog(frame,
+                "You must select a user",
+                "Selection Error",
+                JOptionPane.ERROR_MESSAGE);
+        }else{
+            if(leaf.isLeaf()){
+                new UserUI(twitterTree, userIDText.getText()).setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_openUserViewButtonActionPerformed
 
     /**
      * @param args the command line arguments
