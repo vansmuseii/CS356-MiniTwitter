@@ -19,10 +19,19 @@ public class TwitterTree extends DefaultTreeModel implements Visitable{
         super(root);
     }
     
-    public DefaultMutableTreeNode addLeaf(DefaultMutableTreeNode group, String name){
-        group.add(new DefaultMutableTreeNode ("name"));
-        return group;
-    }    
+    public DefaultMutableTreeNode addLeaf(DefaultMutableTreeNode dir, String name){
+        DefaultMutableTreeNode leaf = new DefaultMutableTreeNode(name);
+        leaf.setAllowsChildren(false);
+        dir.add(leaf);
+        return dir;
+    }
+    public DefaultMutableTreeNode addGroup(DefaultMutableTreeNode dir, String name){
+        DefaultMutableTreeNode fold = new DefaultMutableTreeNode(name);
+        fold.setAllowsChildren(true);
+        dir.add(fold);
+        return dir;
+    }
+
     
     @Override
     public void accept(Visitor visitor) {

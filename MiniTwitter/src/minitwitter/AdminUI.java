@@ -5,7 +5,12 @@
  */
 package minitwitter;
 
+import java.awt.Component;
+import javax.swing.Icon;
+import javax.swing.JTree;
+import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -23,6 +28,25 @@ public class AdminUI extends javax.swing.JFrame {
      */
     private AdminUI() {
         initComponents();
+        twitterTree.setCellRenderer(new DefaultTreeCellRenderer() {
+            private Icon groupIcon = UIManager.getIcon("Tree.openIcon");
+
+            @Override
+            public Component getTreeCellRendererComponent(JTree tree,
+                    Object value, boolean selected, boolean expanded,
+                    boolean isLeaf, int row, boolean focused) {
+                Component c = super.getTreeCellRendererComponent(tree, value,
+                        selected, expanded, isLeaf, row, focused);
+
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
+                if (!node.getAllowsChildren()) {
+                    setIcon(null);
+                } else {
+                    setIcon(groupIcon);
+                }
+                return c;
+            }
+        });
     }
 
     public static AdminUI getInstance() {
@@ -68,6 +92,11 @@ public class AdminUI extends javax.swing.JFrame {
         });
 
         addGroupButton.setText("Add Group");
+        addGroupButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addGroupButtonActionPerformed(evt);
+            }
+        });
 
         openUserViewButton.setText("Open User View");
 
@@ -142,6 +171,7 @@ public class AdminUI extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void addUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserButtonActionPerformed
@@ -149,8 +179,6 @@ public class AdminUI extends javax.swing.JFrame {
         DefaultMutableTreeNode parentNode = null;
         DefaultMutableTreeNode child = null;
         TreePath path = twitterTree.getSelectionPath();
-        System.out.println(path);
-
         if (path == null) {
             //There is no selection. Default to the root node.
             // Fix to where we we just tell user that they must choose a group
@@ -158,14 +186,27 @@ public class AdminUI extends javax.swing.JFrame {
         } else {
             System.out.println(userIDText.getText());
             parentNode = (DefaultMutableTreeNode) (path.getLastPathComponent());
-            child = ((TwitterTree)twitterTree.getModel()).addLeaf(parentNode, userIDText.getText());
+            child = ((TwitterTree) twitterTree.getModel()).addLeaf(parentNode, userIDText.getText());
             twitterTree.scrollPathToVisible(new TreePath(child.getPath()));
-            ((DefaultTreeModel)twitterTree.getModel()).reload();
-
+            ((DefaultTreeModel) twitterTree.getModel()).reload();
         }
-        
-
     }//GEN-LAST:event_addUserButtonActionPerformed
+
+    private void addGroupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addGroupButtonActionPerformed
+        DefaultMutableTreeNode parentNode = null;
+        DefaultMutableTreeNode group = null;
+        TreePath path = twitterTree.getSelectionPath();
+        if (path == null) {
+        
+            }
+        else{
+            parentNode = (DefaultMutableTreeNode) (path.getLastPathComponent());
+            group = ((TwitterTree) twitterTree.getModel()).addGroup(parentNode, groupIDText.getText());
+            twitterTree.scrollPathToVisible(new TreePath(group.getPath()));
+            ((DefaultTreeModel) twitterTree.getModel()).reload();
+        }
+
+    }//GEN-LAST:event_addGroupButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,6 +243,7 @@ public class AdminUI extends javax.swing.JFrame {
         });
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addGroupButton;
     private javax.swing.JButton addUserButton;
@@ -215,4 +257,5 @@ public class AdminUI extends javax.swing.JFrame {
     private javax.swing.JTree twitterTree;
     private javax.swing.JTextField userIDText;
     // End of variables declaration//GEN-END:variables
+
 }
