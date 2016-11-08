@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package minitwitter;
 
 import java.awt.Component;
@@ -14,11 +9,12 @@ import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 /**
  *
- * @author VANSKEES
+ * @author Van Muse
  */
 public class AdminUI extends javax.swing.JFrame {
 
@@ -188,13 +184,13 @@ public class AdminUI extends javax.swing.JFrame {
         if (path == null) {
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame,
-                "Please select group to add user",
-                "Selection Error",
-                JOptionPane.ERROR_MESSAGE);
+                    "Please select group to add user",
+                    "Selection Error",
+                    JOptionPane.ERROR_MESSAGE);
         } else {
             parentNode = (DefaultMutableTreeNode) (path.getLastPathComponent());
-            child = ((TwitterTree) twitterTree.getModel()).addLeaf(parentNode, userIDText.getText());
-            twitterTree.scrollPathToVisible(new TreePath(child.getPath()));
+            child = ((TwitterTree) twitterTree.getModel()).addLeaf(parentNode, userIDText.getText().trim());
+            twitterTree.scrollPathToVisible(path.pathByAddingChild(child));
             ((DefaultTreeModel) twitterTree.getModel()).reload();
         }
     }//GEN-LAST:event_addUserButtonActionPerformed
@@ -206,13 +202,13 @@ public class AdminUI extends javax.swing.JFrame {
         if (path == null) {
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame,
-                "Please select group to add new group",
-                "Selection Error",
-                JOptionPane.ERROR_MESSAGE);
+                    "Please select group to add new group",
+                    "Selection Error",
+                    JOptionPane.ERROR_MESSAGE);
         } else {
             parentNode = (DefaultMutableTreeNode) (path.getLastPathComponent());
-            group = ((TwitterTree) twitterTree.getModel()).addGroup(parentNode, groupIDText.getText());
-            twitterTree.scrollPathToVisible(new TreePath(group.getPath()));
+            group = ((TwitterTree) twitterTree.getModel()).addGroup(parentNode, groupIDText.getText().trim());
+            twitterTree.scrollPathToVisible(path.pathByAddingChild(group));
             ((DefaultTreeModel) twitterTree.getModel()).reload();
         }
 
@@ -222,16 +218,14 @@ public class AdminUI extends javax.swing.JFrame {
         DefaultMutableTreeNode leaf = null;
         TreePath path = twitterTree.getSelectionPath();
         leaf = (DefaultMutableTreeNode) path.getLastPathComponent();
-        if(leaf.getAllowsChildren()){
-             JFrame frame = new JFrame();
+        if (leaf.getAllowsChildren()) {
+            JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame,
-                "You must select a user",
-                "Selection Error",
-                JOptionPane.ERROR_MESSAGE);
-        }else{
-            if(leaf.isLeaf()){
-                new UserUI(twitterTree, userIDText.getText()).setVisible(true);
-            }
+                    "You must select a user",
+                    "Selection Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } else if (leaf.isLeaf()) {
+            new UserUI((TreeModel) twitterTree.getModel(), (User) leaf.getUserObject()).setVisible(true);
         }
     }//GEN-LAST:event_openUserViewButtonActionPerformed
 

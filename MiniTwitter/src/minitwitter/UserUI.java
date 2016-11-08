@@ -1,19 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package minitwitter;
 
-import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeModel;
 
 /**
  *
- * @author VANSKEES
+ * @author Van Muse
  */
 public class UserUI extends javax.swing.JFrame {
-    private JTree tree;
-    private String userName;
+    private User user;
+    private TreeModel mod;
     /**
      * Creates new form UserUI
      */
@@ -21,11 +17,13 @@ public class UserUI extends javax.swing.JFrame {
         initComponents();
     }
     
-    public UserUI(JTree tree, String userName){
-        this.tree = tree;
-        this.userName = userName;
-        this.setTitle(userName);
+    public UserUI(TreeModel mod, User user){
         initComponents();
+        this.mod = mod;
+        this.user = user;
+        this.setTitle(user.getUserName());
+        followerList.setModel(user.getFollowingListModel());
+        tweetList.setModel(user.getNewsFeedListModel());
     }
 
     /**
@@ -49,8 +47,18 @@ public class UserUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         followButton.setText("Follow User");
+        followButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                followButtonActionPerformed(evt);
+            }
+        });
 
         postButton.setText("Post Tweet");
+        postButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                postButtonActionPerformed(evt);
+            }
+        });
 
         jScrollPane3.setViewportView(tweetList);
 
@@ -99,6 +107,22 @@ public class UserUI extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void followButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_followButtonActionPerformed
+        String userID = userIDText.getText().trim();
+        TwitterTree tf = new TwitterTree((DefaultMutableTreeNode)mod.getRoot());
+        User follower = tf.getUser(userID);
+        if(follower != null){
+            user.follow(follower);
+        }
+    }//GEN-LAST:event_followButtonActionPerformed
+
+    private void postButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_postButtonActionPerformed
+        String message = tweetMessageText.getText();
+        this.user.tweet(message);
+        tweetMessageText.setText("");
+        this.user.notifyObs();
+    }//GEN-LAST:event_postButtonActionPerformed
 
     /**
      * @param args the command line arguments
