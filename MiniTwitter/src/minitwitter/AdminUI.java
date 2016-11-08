@@ -25,6 +25,10 @@ public class AdminUI extends javax.swing.JFrame {
      */
     private AdminUI() {
         initComponents();
+        
+        /**
+         * This is for rendering the look of the Jtree
+         */
         twitterTree.setCellRenderer(new DefaultTreeCellRenderer() {
             private Icon groupIcon = UIManager.getIcon("Tree.openIcon");
 
@@ -178,6 +182,10 @@ public class AdminUI extends javax.swing.JFrame {
 
     private void addUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserButtonActionPerformed
         // TODO add your handling code here:
+        /**
+         * This method is responsible for creating a user, add it to the 
+         * tree, and update the display.
+         */
         DefaultMutableTreeNode parentNode = null;
         DefaultMutableTreeNode child = null;
         TreePath path = twitterTree.getSelectionPath();
@@ -196,6 +204,10 @@ public class AdminUI extends javax.swing.JFrame {
     }//GEN-LAST:event_addUserButtonActionPerformed
 
     private void addGroupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addGroupButtonActionPerformed
+        /**
+         * This method is responsible for creating a group, adding it to the 
+         * tree, and update the display
+         */
         DefaultMutableTreeNode parentNode = null;
         DefaultMutableTreeNode group = null;
         TreePath path = twitterTree.getSelectionPath();
@@ -215,6 +227,10 @@ public class AdminUI extends javax.swing.JFrame {
     }//GEN-LAST:event_addGroupButtonActionPerformed
 
     private void openUserViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openUserViewButtonActionPerformed
+        /**
+         * This method is responsible for opening the user view and sending
+         * in the tree model and the user
+         */
         DefaultMutableTreeNode leaf = null;
         TreePath path = twitterTree.getSelectionPath();
         leaf = (DefaultMutableTreeNode) path.getLastPathComponent();
@@ -225,7 +241,7 @@ public class AdminUI extends javax.swing.JFrame {
                     "Selection Error",
                     JOptionPane.ERROR_MESSAGE);
         } else if (leaf.isLeaf()) {
-            new UserUI((TreeModel) twitterTree.getModel(), (User) leaf.getUserObject()).setVisible(true);
+            new UserUI((TreeModel) twitterTree.getModel(), (User)leaf.getUserObject()).setVisible(true);
         }
     }//GEN-LAST:event_openUserViewButtonActionPerformed
 

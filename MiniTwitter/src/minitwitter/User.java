@@ -14,6 +14,12 @@ public class User implements Observer, Subject {
     private DefaultListModel<String> following;
     private DefaultListModel<String> newsFeed;
 
+    /**
+     * This is the constructor that was responsible for taking 
+     * in the user name, and setting its news feed, who they're following
+     * and its followers
+     * @param name 
+     */
     public User(String name) {
         this.name = name;
         this.newsFeed = new DefaultListModel<>();
@@ -21,35 +27,49 @@ public class User implements Observer, Subject {
         this.followers = new DefaultListModel<>();
     }
 
+    /**
+     * Prints tweet and notifies the observers.
+     * @param tweet 
+     */
     public void tweet(String tweet) {
         this.tweet = tweet;
         newsFeed.addElement("- " + name + " | " + tweet);
         notifyObs();
     }
 
+    /**
+     * Returns the user name
+     * @return 
+     */
     public String getUserName() {
         return name;
     }
 
+    /**
+     * returns the new feed
+     * @return 
+     */
     public DefaultListModel<String> getNewsFeedListModel() {
         return this.newsFeed;
     }
 
+    /**
+     * returns the followers
+     * @return 
+     */
     public DefaultListModel<String> getFollowingListModel() {
         return this.following;
     }
+    
+    /**
+     * Follows a person and attaches them
+     * @param user 
+     */
     public void follow(User user){
 		setSub(user);
 		user.attach(this);
 	}
 
-    public Object[] getFollowers() {
-        return this.followers.toArray();
-    }
-
-    public Object[] getMessages() {
-        return this.newsFeed.toArray();
-    }
 
     @Override
     public void update(Subject sub) {
@@ -83,6 +103,10 @@ public class User implements Observer, Subject {
         return this.tweet;
     }
     
+    /**
+     * This is for setting the name for the object
+     * @return 
+     */
     public String toString(){
         return name;
     }

@@ -16,7 +16,13 @@ public class UserUI extends javax.swing.JFrame {
     public UserUI() {
         initComponents();
     }
-    
+    /**
+     * This is responsible for setting the user and the tree model,
+     * also puts the name of the user onto the title bar
+     * and sets the follower and tweet list.
+     * @param mod
+     * @param user 
+     */
     public UserUI(TreeModel mod, User user){
         initComponents();
         this.mod = mod;

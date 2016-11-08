@@ -1,4 +1,3 @@
-
 package minitwitter;
 
 import java.io.IOException;
