@@ -1,3 +1,15 @@
+/**
+ *      File: AdminUI.java
+ *      Author: Van Steven Muse II
+ *      Class: CS 356 - Object Oriented Programming and Design
+ *
+ *      Assignment: Assignment 2
+ *      Date Last Modified: 11/09/2016
+ *
+ *      Purpose: This is for the Admin UI, which also contains
+ *      the different interactions with the classes. 
+ *
+ */
 package minitwitter;
 
 import java.awt.Component;
@@ -10,7 +22,6 @@ import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 /**
@@ -20,13 +31,14 @@ import javax.swing.tree.TreePath;
 public class AdminUI extends javax.swing.JFrame {
 
     private static AdminUI instance = null;
-    DecimalFormat df = new DecimalFormat("#.##");                     
+    DecimalFormat df = new DecimalFormat("#.##");
+
     /**
      * Creates new form AdminUI
      */
     private AdminUI() {
         initComponents();
-        
+
         /**
          * This is for rendering the look of the JTree
          */
@@ -204,103 +216,134 @@ public class AdminUI extends javax.swing.JFrame {
     private void addUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserButtonActionPerformed
         // TODO add your handling code here:
         /**
-         * This method is responsible for creating a user, add it to the 
-         * tree, and update the display.
+         * This method is responsible for creating a user, add it to the tree,
+         * and update the display.
          */
-        DefaultMutableTreeNode parentNode = null;
-        DefaultMutableTreeNode child = null;
-        TreePath path = twitterTree.getSelectionPath();
-        if (path == null) {
+        if (userIDText.getText().equals("")) {
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame,
-                    "Please select group to add user",
-                    "Selection Error",
+                    "Please insert name",
+                    "Input Error",
                     JOptionPane.ERROR_MESSAGE);
         } else {
-            parentNode = (DefaultMutableTreeNode) (path.getLastPathComponent());
-            child = ((TwitterTree) twitterTree.getModel()).addLeaf(parentNode,userIDText.getText().trim());
-            twitterTree.scrollPathToVisible(path.pathByAddingChild(child));
-            ((DefaultTreeModel) twitterTree.getModel()).reload();
+            TreePath path = twitterTree.getSelectionPath();
+            DefaultMutableTreeNode leaf = (DefaultMutableTreeNode) path.getLastPathComponent();
+            if (path == null) {
+                JFrame frame = new JFrame();
+                JOptionPane.showMessageDialog(frame,
+                        "Please select group to add user",
+                        "Selection Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+            else if(!leaf.getAllowsChildren()){
+                JFrame frame = new JFrame();
+                JOptionPane.showMessageDialog(frame,
+                        "Cannot add leaf to user",
+                        "Selection Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) (path.getLastPathComponent());
+                DefaultMutableTreeNode child = ((TwitterTree) twitterTree.getModel()).addLeaf(parentNode, userIDText.getText().trim());
+                twitterTree.scrollPathToVisible(path.pathByAddingChild(child));
+                ((DefaultTreeModel) twitterTree.getModel()).reload();
+                userIDText.setText("");
+            }
         }
     }//GEN-LAST:event_addUserButtonActionPerformed
 
     private void addGroupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addGroupButtonActionPerformed
         /**
-         * This method is responsible for creating a group, adding it to the 
+         * This method is responsible for creating a group, adding it to the
          * tree, and update the display
          */
-        DefaultMutableTreeNode parentNode = null;
-        DefaultMutableTreeNode group = null;
-        TreePath path = twitterTree.getSelectionPath();
-        if (path == null) {
+        if (groupIDText.getText().equals("")) {
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame,
-                    "Please select group to add new group",
-                    "Selection Error",
+                    "Please insert group name",
+                    "Input Error",
                     JOptionPane.ERROR_MESSAGE);
         } else {
-            parentNode = (DefaultMutableTreeNode) (path.getLastPathComponent());
-            group = ((TwitterTree) twitterTree.getModel()).addGroup(parentNode, groupIDText.getText().trim());
-            twitterTree.scrollPathToVisible(path.pathByAddingChild(group));
-            ((DefaultTreeModel) twitterTree.getModel()).reload();
+            TreePath path = twitterTree.getSelectionPath();
+            if (path == null) {
+                JFrame frame = new JFrame();
+                JOptionPane.showMessageDialog(frame,
+                        "Please select group to add new group",
+                        "Selection Error",
+                        JOptionPane.ERROR_MESSAGE);
+            } else {
+                DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) (path.getLastPathComponent());
+                DefaultMutableTreeNode group = ((TwitterTree) twitterTree.getModel()).addGroup(parentNode, groupIDText.getText().trim());
+                twitterTree.scrollPathToVisible(path.pathByAddingChild(group));
+                ((DefaultTreeModel) twitterTree.getModel()).reload();
+                groupIDText.setText("");
+            }
         }
-
     }//GEN-LAST:event_addGroupButtonActionPerformed
 
     private void openUserViewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openUserViewButtonActionPerformed
         /**
-         * This method is responsible for opening the user view and sending
-         * in the tree model and the user
+         * This method is responsible for opening the user view and sending in
+         * the tree model and the user
          */
-        DefaultMutableTreeNode leaf = null;
         TreePath path = twitterTree.getSelectionPath();
-        leaf = (DefaultMutableTreeNode) path.getLastPathComponent();
-        if (leaf.getAllowsChildren()) {
+        if ( path == null) {
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame,
                     "You must select a user",
                     "Selection Error",
                     JOptionPane.ERROR_MESSAGE);
-        } else if (leaf.isLeaf()) {
-            new UserUI((TwitterTree)twitterTree.getModel(), (User)leaf.getUserObject()).setVisible(true);
+        } else {
+            DefaultMutableTreeNode leaf = (DefaultMutableTreeNode) path.getLastPathComponent();
+            if (leaf.getAllowsChildren()) {
+                JFrame frame = new JFrame();
+                JOptionPane.showMessageDialog(frame,
+                        "You must select a user",
+                        "Selection Error",
+                        JOptionPane.ERROR_MESSAGE);
+            } else if (leaf.isLeaf()) {
+                new UserUI((TwitterTree) twitterTree.getModel(), (User) leaf.getUserObject()).setVisible(true);
+            }
         }
     }//GEN-LAST:event_openUserViewButtonActionPerformed
 
     private void showUserTotalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showUserTotalButtonActionPerformed
-        // TODO add your handling code here:
+        // Shows User Total
         UserTotal user = new UserTotal();
         ((TwitterTree) twitterTree.getModel()).accept(user);
-        showDiag(showMessagesTotalButton.getText(),"User Total", String.valueOf(user.result()));
+        showDiag(showMessagesTotalButton.getText(), "User Total", String.valueOf(user.result()));
     }//GEN-LAST:event_showUserTotalButtonActionPerformed
 
     private void showGroupTotalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showGroupTotalButtonActionPerformed
-        // TODO add your handling code here:
-         GroupTotal group = new GroupTotal();
+        // Shows Group Total
+        GroupTotal group = new GroupTotal();
         ((TwitterTree) twitterTree.getModel()).accept(group);
-        showDiag(showMessagesTotalButton.getText(),"Group Total", String.valueOf(group.result()));
+        showDiag(showMessagesTotalButton.getText(), "Group Total", String.valueOf(group.result()));
     }//GEN-LAST:event_showGroupTotalButtonActionPerformed
 
     private void showMessagesTotalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showMessagesTotalButtonActionPerformed
-        // TODO add your handling code here:
-         MessagesTotal messages = new MessagesTotal();
+        // Shows Messages Total
+        MessagesTotal messages = new MessagesTotal();
         ((TwitterTree) twitterTree.getModel()).accept(messages);
-        showDiag(showMessagesTotalButton.getText(),"Total Messages", String.valueOf(messages.result()));
+        showDiag(showMessagesTotalButton.getText(), "Total Messages", String.valueOf(messages.result()));
     }//GEN-LAST:event_showMessagesTotalButtonActionPerformed
 
     private void positivePercentagesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_positivePercentagesButtonActionPerformed
-        // TODO add your handling code here:
-         PositivePercentage percent = new PositivePercentage();
+        // Shwos Positive Percentage
+        PositivePercentage percent = new PositivePercentage();
         ((TwitterTree) twitterTree.getModel()).accept(percent);
-        showDiag(showMessagesTotalButton.getText(),"Positve Percentage", df.format(percent.result())+"%");
+        showDiag(showMessagesTotalButton.getText(), "Positve Percentage", df.format(percent.result()) + "%");
     }//GEN-LAST:event_positivePercentagesButtonActionPerformed
 
-    private void showDiag(String title, String form, String total){
+    private void showDiag(String title, String form, String total) {
+        // Shows the dialog box for the Totals
         JFrame frame = new JFrame();
-         JOptionPane.showMessageDialog(frame,
-                    form+": "+total,
-                    title,
-                    JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(frame,
+                form + ": " + total,
+                title,
+                JOptionPane.INFORMATION_MESSAGE);
     }
+
     /**
      * @param args the command line arguments
      */

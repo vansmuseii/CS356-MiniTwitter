@@ -1,12 +1,23 @@
-package minitwitter;
+/**
+ *      File: UserUI.java
+ *      Author: Van Steven Muse II
+ *      Class: CS 356 - Object Oriented Programming and Design
+ *
+ *      Assignment: Assignment 2
+ *      Date Last Modified: 11/09/2016
+ *
+ *      Purpose: This is in charge of the User UI and interaction
+ *      with the buttons
+ *
+ */
 
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeModel;
+package minitwitter;
 
 /**
  *
  * @author Van Muse
  */
+
 public class UserUI extends javax.swing.JFrame {
     private User user;
     private TwitterTree tree;
@@ -117,6 +128,7 @@ public class UserUI extends javax.swing.JFrame {
     private void followButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_followButtonActionPerformed
         String userID = userIDText.getText().trim();
         User follower = (User)this.tree.getUser(userID);
+        userIDText.setText("");
         if(follower != null){
             user.follow(follower);
         }

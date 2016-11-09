@@ -1,15 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *      File: GroupTotal.java
+ *      Author: Van Steven Muse II
+ *      Class: CS 356 - Object Oriented Programming and Design
+ *
+ *      Assignment: Assignment 2
+ *      Date Last Modified: 11/09/2016
+ *
+ *      Purpose: This inherits Visitor and gets a group total
+ *
  */
+
 package minitwitter;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  *
- * @author VANSKEES
+ * @author Van Muse
  */
 public class GroupTotal implements Visitor {
 
@@ -26,6 +33,10 @@ public class GroupTotal implements Visitor {
         }
     }
 
+    /**
+     * Returns the total of groups
+     * @return 
+     */
     public int result() {
         return total;
     }

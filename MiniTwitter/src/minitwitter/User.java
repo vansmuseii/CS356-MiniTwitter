@@ -1,3 +1,16 @@
+/**
+ *      File: User.java
+ *      Author: Van Steven Muse II
+ *      Class: CS 356 - Object Oriented Programming and Design
+ *
+ *      Assignment: Assignment 2
+ *      Date Last Modified: 11/09/2016
+ *
+ *      Purpose: This handles all the necessary elements for the
+ *      user.
+ *
+ */
+
 package minitwitter;
 
 import javax.swing.DefaultListModel;
@@ -8,6 +21,10 @@ import javax.swing.DefaultListModel;
  */
 public class User implements Observer, Subject {
 
+    /**
+     * These variables are for name, the tweet
+     * a list for followers, following, and news feed.
+     */
     private String name;
     private String tweet;
     private DefaultListModel<Observer> followers;
@@ -74,6 +91,23 @@ public class User implements Observer, Subject {
         setSub(user);
         user.attach(this);
     }
+        
+    /**
+     * This is for setting the name for the object
+     *
+     * @return
+     */
+    public String toString() {
+        return name;
+    }
+
+    /**
+     * This is for getting all the messages
+     * @return 
+     */
+    public Object[] getMessages() {
+        return this.newsFeed.toArray();
+    }
 
     @Override
     public void update(Subject sub) {
@@ -105,18 +139,5 @@ public class User implements Observer, Subject {
     @Override
     public String getUpdate(Observer obs) {
         return this.tweet;
-    }
-
-    /**
-     * This is for setting the name for the object
-     *
-     * @return
-     */
-    public String toString() {
-        return name;
-    }
-
-    public Object[] getMessages() {
-        return this.newsFeed.toArray();
     }
 }

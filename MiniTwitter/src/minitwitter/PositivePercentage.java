@@ -1,8 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ *      File: PositivePercentage.java
+ *      Author: Van Steven Muse II
+ *      Class: CS 356 - Object Oriented Programming and Design
+ *
+ *      Assignment: Assignment 2
+ *      Date Last Modified: 11/09/2016
+ *
+ *      Purpose: This inherits Visitor and grabs the positive
+ *      feedback from the users.
+ *
  */
+
 package minitwitter;
 
 import java.util.Arrays;
@@ -10,7 +18,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
  *
- * @author VANSKEES
+ * @author Van Muse
  */
 public class PositivePercentage implements Visitor {
 
@@ -38,6 +46,10 @@ public class PositivePercentage implements Visitor {
         }
     }
 
+    /**
+     * Returns the Positive percentage.
+     * @return 
+     */
     public double result() {
         return (count*100.0)/total;
     }

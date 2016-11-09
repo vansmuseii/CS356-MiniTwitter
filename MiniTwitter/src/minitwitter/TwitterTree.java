@@ -1,7 +1,19 @@
+/**
+ *      File: TwitterTree.java
+ *      Author: Van Steven Muse II
+ *      Class: CS 356 - Object Oriented Programming and Design
+ *
+ *      Assignment: Assignment 2
+ *      Date Last Modified: 11/09/2016
+ *
+ *      Purpose: This is the overall tree of how to control the
+ *      tree.
+ *
+ */
+
 package minitwitter;
 
 import java.util.Enumeration;
-import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -13,8 +25,6 @@ import javax.swing.tree.TreeNode;
  * @author Van Muse
  */
 public class TwitterTree extends DefaultTreeModel implements Visitable {
-
-    private Map<String, DefaultMutableTreeNode> map;
 
     public TwitterTree(TreeNode root) {
         super(root);
