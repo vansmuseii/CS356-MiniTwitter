@@ -15,10 +15,10 @@ public class User implements Observer, Subject {
     private DefaultListModel<String> newsFeed;
 
     /**
-     * This is the constructor that was responsible for taking 
-     * in the user name, and setting its news feed, who they're following
-     * and its followers
-     * @param name 
+     * This is the constructor that was responsible for taking in the user name,
+     * and setting its news feed, who they're following and its followers
+     *
+     * @param name
      */
     public User(String name) {
         this.name = name;
@@ -29,17 +29,19 @@ public class User implements Observer, Subject {
 
     /**
      * Prints tweet and notifies the observers.
-     * @param tweet 
+     *
+     * @param tweet
      */
     public void tweet(String tweet) {
         this.tweet = tweet;
-        newsFeed.addElement("- " + name + " | " + tweet);
+        newsFeed.addElement("- Me: " + tweet);
         notifyObs();
     }
 
     /**
      * Returns the user name
-     * @return 
+     *
+     * @return
      */
     public String getUserName() {
         return name;
@@ -47,7 +49,8 @@ public class User implements Observer, Subject {
 
     /**
      * returns the new feed
-     * @return 
+     *
+     * @return
      */
     public DefaultListModel<String> getNewsFeedListModel() {
         return this.newsFeed;
@@ -55,21 +58,22 @@ public class User implements Observer, Subject {
 
     /**
      * returns the followers
-     * @return 
+     *
+     * @return
      */
     public DefaultListModel<String> getFollowingListModel() {
         return this.following;
     }
-    
+
     /**
      * Follows a person and attaches them
-     * @param user 
+     *
+     * @param user
      */
-    public void follow(User user){
-		setSub(user);
-		user.attach(this);
-	}
-
+    public void follow(User user) {
+        setSub(user);
+        user.attach(this);
+    }
 
     @Override
     public void update(Subject sub) {
@@ -102,12 +106,17 @@ public class User implements Observer, Subject {
     public String getUpdate(Observer obs) {
         return this.tweet;
     }
-    
+
     /**
      * This is for setting the name for the object
-     * @return 
+     *
+     * @return
      */
-    public String toString(){
+    public String toString() {
         return name;
+    }
+
+    public Object[] getMessages() {
+        return this.newsFeed.toArray();
     }
 }

@@ -130,21 +130,33 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Show User Total"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showUserTotalButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="showGroupTotalButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Show Group Total"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showGroupTotalButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="showMessagesTotalButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Show Messages Total"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showMessagesTotalButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="positivePercentagesButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Show Positive Percentage"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="positivePercentagesButtonActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
       <AuxValues>
@@ -156,7 +168,7 @@
         <Component class="javax.swing.JTree" name="twitterTree">
           <Properties>
             <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new TwitterTree(new DefaultMutableTreeNode(new User(&quot;Root&quot;)))" type="code"/>
+              <Connection code="new TwitterTree(new DefaultMutableTreeNode(new Group(&quot;Root&quot;)))" type="code"/>
             </Property>
           </Properties>
         </Component>

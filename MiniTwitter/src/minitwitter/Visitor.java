@@ -10,5 +10,4 @@ public interface Visitor {
      * @param n 
      */
     void visit(Object n);
-    public int result();
 }

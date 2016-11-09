@@ -2,6 +2,8 @@ package minitwitter;
 
 import java.util.Enumeration;
 import java.util.Map;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
@@ -25,7 +27,6 @@ public class TwitterTree extends DefaultTreeModel implements Visitable {
      * @param name
      * @return
      */
-
     public DefaultMutableTreeNode addLeaf(DefaultMutableTreeNode dir, String name) {
         DefaultMutableTreeNode leaf = new DefaultMutableTreeNode(new User(name));
         leaf.setAllowsChildren(false);
@@ -41,7 +42,7 @@ public class TwitterTree extends DefaultTreeModel implements Visitable {
      * @return
      */
     public DefaultMutableTreeNode addGroup(DefaultMutableTreeNode dir, String name) {
-        DefaultMutableTreeNode fold = new DefaultMutableTreeNode(name);
+        DefaultMutableTreeNode fold = new DefaultMutableTreeNode(new Group(name));
         fold.setAllowsChildren(true);
         dir.add(fold);
         return dir;
@@ -49,9 +50,9 @@ public class TwitterTree extends DefaultTreeModel implements Visitable {
 
     @Override
     public void accept(Visitor visitor) {
-    Enumeration en = ((DefaultMutableTreeNode) this.getRoot()).preorderEnumeration();
+        Enumeration en = ((DefaultMutableTreeNode) this.getRoot()).preorderEnumeration();
         while (en.hasMoreElements()) {
-            TreeNode user = (DefaultMutableTreeNode)en.nextElement();
+            TreeNode user = (DefaultMutableTreeNode) en.nextElement();
             visitor.visit(user);
         }
     }
@@ -65,10 +66,20 @@ public class TwitterTree extends DefaultTreeModel implements Visitable {
     public User getUser(String id) {
         Enumeration en = ((DefaultMutableTreeNode) this.getRoot()).preorderEnumeration();
         while (en.hasMoreElements()) {
-            User use = (User) ((DefaultMutableTreeNode) en.nextElement()).getUserObject();
-            if (use.getUserName().equals(id)) 
-                return use;                
+            try {
+                User use = (User) ((DefaultMutableTreeNode) en.nextElement()).getUserObject();
+                if (use.getUserName().equals(id)) {
+                    return use;
+                }
+            } catch (Exception e) {
+
+            }
         }
+        JFrame frame = new JFrame();
+        JOptionPane.showMessageDialog(frame,
+                "Unable to find User: " + id,
+                "Search error",
+                JOptionPane.ERROR_MESSAGE);
         return null;
     }
 }

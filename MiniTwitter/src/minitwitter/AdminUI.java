@@ -1,6 +1,7 @@
 package minitwitter;
 
 import java.awt.Component;
+import java.text.DecimalFormat;
 import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -19,7 +20,7 @@ import javax.swing.tree.TreePath;
 public class AdminUI extends javax.swing.JFrame {
 
     private static AdminUI instance = null;
-
+    DecimalFormat df = new DecimalFormat("#.##");                     
     /**
      * Creates new form AdminUI
      */
@@ -27,7 +28,7 @@ public class AdminUI extends javax.swing.JFrame {
         initComponents();
         
         /**
-         * This is for rendering the look of the Jtree
+         * This is for rendering the look of the JTree
          */
         twitterTree.setCellRenderer(new DefaultTreeCellRenderer() {
             private Icon groupIcon = UIManager.getIcon("Tree.openIcon");
@@ -107,14 +108,34 @@ public class AdminUI extends javax.swing.JFrame {
         });
 
         showUserTotalButton.setText("Show User Total");
+        showUserTotalButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showUserTotalButtonActionPerformed(evt);
+            }
+        });
 
         showGroupTotalButton.setText("Show Group Total");
+        showGroupTotalButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showGroupTotalButtonActionPerformed(evt);
+            }
+        });
 
         showMessagesTotalButton.setText("Show Messages Total");
+        showMessagesTotalButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showMessagesTotalButtonActionPerformed(evt);
+            }
+        });
 
         positivePercentagesButton.setText("Show Positive Percentage");
+        positivePercentagesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                positivePercentagesButtonActionPerformed(evt);
+            }
+        });
 
-        twitterTree.setModel(new TwitterTree(new DefaultMutableTreeNode(new User("Root"))));
+        twitterTree.setModel(new TwitterTree(new DefaultMutableTreeNode(new Group("Root"))));
         jScrollPane2.setViewportView(twitterTree);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -245,6 +266,41 @@ public class AdminUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_openUserViewButtonActionPerformed
 
+    private void showUserTotalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showUserTotalButtonActionPerformed
+        // TODO add your handling code here:
+        UserTotal user = new UserTotal();
+        ((TwitterTree) twitterTree.getModel()).accept(user);
+        showDiag(showMessagesTotalButton.getText(),"User Total", String.valueOf(user.result()));
+    }//GEN-LAST:event_showUserTotalButtonActionPerformed
+
+    private void showGroupTotalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showGroupTotalButtonActionPerformed
+        // TODO add your handling code here:
+         GroupTotal group = new GroupTotal();
+        ((TwitterTree) twitterTree.getModel()).accept(group);
+        showDiag(showMessagesTotalButton.getText(),"Group Total", String.valueOf(group.result()));
+    }//GEN-LAST:event_showGroupTotalButtonActionPerformed
+
+    private void showMessagesTotalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showMessagesTotalButtonActionPerformed
+        // TODO add your handling code here:
+         MessagesTotal messages = new MessagesTotal();
+        ((TwitterTree) twitterTree.getModel()).accept(messages);
+        showDiag(showMessagesTotalButton.getText(),"Total Messages", String.valueOf(messages.result()));
+    }//GEN-LAST:event_showMessagesTotalButtonActionPerformed
+
+    private void positivePercentagesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_positivePercentagesButtonActionPerformed
+        // TODO add your handling code here:
+         PositivePercentage percent = new PositivePercentage();
+        ((TwitterTree) twitterTree.getModel()).accept(percent);
+        showDiag(showMessagesTotalButton.getText(),"Positve Percentage", df.format(percent.result())+"%");
+    }//GEN-LAST:event_positivePercentagesButtonActionPerformed
+
+    private void showDiag(String title, String form, String total){
+        JFrame frame = new JFrame();
+         JOptionPane.showMessageDialog(frame,
+                    form+": "+total,
+                    title,
+                    JOptionPane.INFORMATION_MESSAGE);
+    }
     /**
      * @param args the command line arguments
      */
