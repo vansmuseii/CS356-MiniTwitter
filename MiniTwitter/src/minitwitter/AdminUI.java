@@ -96,6 +96,7 @@ public class AdminUI extends javax.swing.JFrame {
         twitterTree = new javax.swing.JTree();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Mini Twitter");
         setLocationByPlatform(true);
 
         addUserButton.setText("Add User");
