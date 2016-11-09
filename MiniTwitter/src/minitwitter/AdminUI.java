@@ -114,7 +114,7 @@ public class AdminUI extends javax.swing.JFrame {
 
         positivePercentagesButton.setText("Show Positive Percentage");
 
-        twitterTree.setModel(new TwitterTree(new DefaultMutableTreeNode("Root")));
+        twitterTree.setModel(new TwitterTree(new DefaultMutableTreeNode(new User("Root"))));
         jScrollPane2.setViewportView(twitterTree);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

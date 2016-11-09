@@ -5,7 +5,6 @@ import java.util.Map;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
 
 /**
  *
@@ -50,16 +49,15 @@ public class TwitterTree extends DefaultTreeModel implements Visitable {
 
     @Override
     public void accept(Visitor visitor) {
-        map.put(this.getRoot().toString(), (DefaultMutableTreeNode) this.getRoot());
-        for (Map.Entry<String, DefaultMutableTreeNode> v : map.entrySet()) {
-            visitor.visit(v.getValue());
+    Enumeration en = ((DefaultMutableTreeNode) this.getRoot()).preorderEnumeration();
+        while (en.hasMoreElements()) {
+            TreeNode user = (DefaultMutableTreeNode)en.nextElement();
+            visitor.visit(user);
         }
     }
 
     /**
-     * This is supposed to return a User object with the string ID However I had
-     * difficulty trying to find the User object, and was getting a string
-     * instead
+     * This is supposed to return a User object with the string ID.
      *
      * @param id
      * @return
@@ -67,14 +65,9 @@ public class TwitterTree extends DefaultTreeModel implements Visitable {
     public User getUser(String id) {
         Enumeration en = ((DefaultMutableTreeNode) this.getRoot()).preorderEnumeration();
         while (en.hasMoreElements()) {
-            try {
-                User use = (User) ((DefaultMutableTreeNode) en.nextElement()).getUserObject();
-                if (use.getUserName().equals(id)) {
-                    return use;
-                }
-            } catch (Exception e) {
-
-            }
+            User use = (User) ((DefaultMutableTreeNode) en.nextElement()).getUserObject();
+            if (use.getUserName().equals(id)) 
+                return use;                
         }
         return null;
     }
