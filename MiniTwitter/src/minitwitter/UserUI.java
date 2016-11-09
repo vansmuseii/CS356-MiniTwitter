@@ -126,7 +126,6 @@ public class UserUI extends javax.swing.JFrame {
         String message = tweetMessageText.getText();
         this.user.tweet(message);
         tweetMessageText.setText("");
-        this.user.notifyObs();
     }//GEN-LAST:event_postButtonActionPerformed
 
     /**
