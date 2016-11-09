@@ -197,7 +197,7 @@ public class AdminUI extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
         } else {
             parentNode = (DefaultMutableTreeNode) (path.getLastPathComponent());
-            child = ((TwitterTree) twitterTree.getModel()).addLeaf(parentNode, userIDText.getText().trim());
+            child = ((TwitterTree) twitterTree.getModel()).addLeaf(parentNode,userIDText.getText().trim());
             twitterTree.scrollPathToVisible(path.pathByAddingChild(child));
             ((DefaultTreeModel) twitterTree.getModel()).reload();
         }
@@ -241,7 +241,7 @@ public class AdminUI extends javax.swing.JFrame {
                     "Selection Error",
                     JOptionPane.ERROR_MESSAGE);
         } else if (leaf.isLeaf()) {
-            new UserUI((TreeModel) twitterTree.getModel(), (User)leaf.getUserObject()).setVisible(true);
+            new UserUI((TwitterTree)twitterTree.getModel(), (User)leaf.getUserObject()).setVisible(true);
         }
     }//GEN-LAST:event_openUserViewButtonActionPerformed
 

@@ -9,7 +9,7 @@ import javax.swing.tree.TreeModel;
  */
 public class UserUI extends javax.swing.JFrame {
     private User user;
-    private TreeModel mod;
+    private TwitterTree tree;
     /**
      * Creates new form UserUI
      */
@@ -23,9 +23,9 @@ public class UserUI extends javax.swing.JFrame {
      * @param mod
      * @param user 
      */
-    public UserUI(TreeModel mod, User user){
+    public UserUI(TwitterTree tree, User user){
         initComponents();
-        this.mod = mod;
+        this.tree = tree;
         this.user = user;
         this.setTitle(user.getUserName());
         followerList.setModel(user.getFollowingListModel());
@@ -116,8 +116,7 @@ public class UserUI extends javax.swing.JFrame {
 
     private void followButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_followButtonActionPerformed
         String userID = userIDText.getText().trim();
-        TwitterTree tf = new TwitterTree((DefaultMutableTreeNode)mod.getRoot());
-        User follower = tf.getUser(userID);
+        User follower = (User)this.tree.getUser(userID);
         if(follower != null){
             user.follow(follower);
         }
