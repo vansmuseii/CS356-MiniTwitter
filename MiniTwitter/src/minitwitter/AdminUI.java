@@ -7,7 +7,7 @@
  *      Date Last Modified: 11/09/2016
  *
  *      Purpose: This is for the Admin UI, which also contains
- *      the different interactions with the classes. 
+ *      the different interactions with the classes.
  *
  */
 package minitwitter;
@@ -228,27 +228,33 @@ public class AdminUI extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
         } else {
             TreePath path = twitterTree.getSelectionPath();
-            DefaultMutableTreeNode leaf = (DefaultMutableTreeNode) path.getLastPathComponent();
-            if (path == null) {
+            try {
+                DefaultMutableTreeNode leaf = (DefaultMutableTreeNode) path.getLastPathComponent();
+                if (path == null) {
+                    JFrame frame = new JFrame();
+                    JOptionPane.showMessageDialog(frame,
+                            "Please select group to add user",
+                            "Selection Error",
+                            JOptionPane.ERROR_MESSAGE);
+                } else if (!leaf.getAllowsChildren()) {
+                    JFrame frame = new JFrame();
+                    JOptionPane.showMessageDialog(frame,
+                            "Cannot add leaf to user",
+                            "Selection Error",
+                            JOptionPane.ERROR_MESSAGE);
+                } else {
+                    DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) (path.getLastPathComponent());
+                    DefaultMutableTreeNode child = ((TwitterTree) twitterTree.getModel()).addLeaf(parentNode, userIDText.getText().trim());
+                    twitterTree.scrollPathToVisible(path.pathByAddingChild(child));
+                    ((DefaultTreeModel) twitterTree.getModel()).reload();
+                    userIDText.setText("");
+                }
+            } catch (Exception e) {
                 JFrame frame = new JFrame();
                 JOptionPane.showMessageDialog(frame,
                         "Please select group to add user",
                         "Selection Error",
                         JOptionPane.ERROR_MESSAGE);
-            }
-            else if(!leaf.getAllowsChildren()){
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame,
-                        "Cannot add leaf to user",
-                        "Selection Error",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-            else{
-                DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) (path.getLastPathComponent());
-                DefaultMutableTreeNode child = ((TwitterTree) twitterTree.getModel()).addLeaf(parentNode, userIDText.getText().trim());
-                twitterTree.scrollPathToVisible(path.pathByAddingChild(child));
-                ((DefaultTreeModel) twitterTree.getModel()).reload();
-                userIDText.setText("");
             }
         }
     }//GEN-LAST:event_addUserButtonActionPerformed
@@ -288,7 +294,7 @@ public class AdminUI extends javax.swing.JFrame {
          * the tree model and the user
          */
         TreePath path = twitterTree.getSelectionPath();
-        if ( path == null) {
+        if (path == null) {
             JFrame frame = new JFrame();
             JOptionPane.showMessageDialog(frame,
                     "You must select a user",

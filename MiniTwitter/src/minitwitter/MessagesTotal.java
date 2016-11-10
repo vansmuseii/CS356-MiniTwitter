@@ -26,7 +26,7 @@ public class MessagesTotal implements Visitor {
     public void visit(Object n) {
         try {
             User user = (User) ((DefaultMutableTreeNode) n).getUserObject();
-            total += user.getMessages().length;
+            total += user.getUniqueMessages().toArray().length;
         } catch (Exception e){
             
         }

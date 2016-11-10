@@ -30,6 +30,7 @@ public class User implements Observer, Subject {
     private DefaultListModel<Observer> followers;
     private DefaultListModel<String> following;
     private DefaultListModel<String> newsFeed;
+    private DefaultListModel<String> uniqueMessage;
 
     /**
      * This is the constructor that was responsible for taking in the user name,
@@ -42,6 +43,7 @@ public class User implements Observer, Subject {
         this.newsFeed = new DefaultListModel<>();
         this.following = new DefaultListModel<>();
         this.followers = new DefaultListModel<>();
+        this.uniqueMessage = new DefaultListModel();
     }
 
     /**
@@ -52,6 +54,7 @@ public class User implements Observer, Subject {
     public void tweet(String tweet) {
         this.tweet = tweet;
         newsFeed.addElement("- Me: " + tweet);
+        uniqueMessage.addElement(tweet);
         notifyObs();
     }
 
@@ -81,6 +84,10 @@ public class User implements Observer, Subject {
     public DefaultListModel<String> getFollowingListModel() {
         return this.following;
     }
+    
+    public DefaultListModel<String> getUniqueMessages(){
+        return this.uniqueMessage;
+    }
 
     /**
      * Follows a person and attaches them
@@ -99,14 +106,6 @@ public class User implements Observer, Subject {
      */
     public String toString() {
         return name;
-    }
-
-    /**
-     * This is for getting all the messages
-     * @return 
-     */
-    public Object[] getMessages() {
-        return this.newsFeed.toArray();
     }
 
     @Override

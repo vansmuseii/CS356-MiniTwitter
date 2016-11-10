@@ -30,7 +30,7 @@ public class PositivePercentage implements Visitor {
         String[] positiveWords = {"good", "awesome", "great", "excellent"};
         try{
             User user = (User) ((DefaultMutableTreeNode) n).getUserObject();
-            Object arr[] = user.getMessages();
+            Object arr[] = user.getUniqueMessages().toArray();
             String[] messages = Arrays.copyOf(arr, arr.length, String[].class);
             total += messages.length;
             for (String key : positiveWords) {
