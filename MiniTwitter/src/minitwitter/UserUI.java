@@ -13,6 +13,9 @@
 
 package minitwitter;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Van Muse
@@ -61,7 +64,7 @@ public class UserUI extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         followerList = new javax.swing.JList<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         followButton.setText("Follow User");
         followButton.addActionListener(new java.awt.event.ActionListener() {
@@ -130,7 +133,16 @@ public class UserUI extends javax.swing.JFrame {
         User follower = (User)this.tree.getUser(userID);
         userIDText.setText("");
         if(follower != null){
-            user.follow(follower);
+            if(!user.getFollowingListModel().contains(follower.toString())&&
+                    user != follower){
+            user.follow(follower);}
+            else{
+                JFrame frame = new JFrame();
+                JOptionPane.showMessageDialog(frame,
+                        "Cannot add the same user",
+                        "Selection Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_followButtonActionPerformed
 
