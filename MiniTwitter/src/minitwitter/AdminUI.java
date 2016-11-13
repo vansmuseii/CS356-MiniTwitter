@@ -63,6 +63,10 @@ public class AdminUI extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Singleton
+     * @return 
+     */
     public static AdminUI getInstance() {
         if (instance == null) {
             synchronized (AdminUI.class) {
