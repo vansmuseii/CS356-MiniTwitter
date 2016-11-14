@@ -9,7 +9,6 @@
  *      Purpose: This inherits Visitor and gets a group total
  *
  */
-
 package minitwitter;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -24,21 +23,22 @@ public class GroupTotal implements Visitor {
 
     @Override
     public void visit(Object n) {
-        try{
-            Group group = (Group) ((DefaultMutableTreeNode) n).getUserObject();
-            total++;
-        }
-        catch (Exception E){
-            
+        try {
+            if ((Group) ((DefaultMutableTreeNode) n).getUserObject() instanceof Group) {
+                total++;
+            }
+        } catch (Exception E) {
+
         }
     }
 
     /**
      * Returns the total of groups
-     * @return 
+     *
+     * @return
      */
     public int result() {
         return total;
     }
-    
+
 }

@@ -10,7 +10,6 @@
  *      tree.
  *
  */
-
 package minitwitter;
 
 import java.util.Enumeration;

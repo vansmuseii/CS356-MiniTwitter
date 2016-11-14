@@ -9,7 +9,6 @@
  *      Purpose: This inherits Visitor and returns the user total
  *
  */
-
 package minitwitter;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -25,15 +24,17 @@ public class UserTotal implements Visitor {
     @Override
     public void visit(Object n) {
         try {
-            User user = (User) ((DefaultMutableTreeNode) n).getUserObject();
-            total++;
+            if ((User) ((DefaultMutableTreeNode) n).getUserObject() instanceof User) {
+                total++;
+            }
         } catch (Exception e) {
         }
     }
 
     /**
      * Returns the number of Visitors
-     * @return 
+     *
+     * @return
      */
     public int result() {
         return total;

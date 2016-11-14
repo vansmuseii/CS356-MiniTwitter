@@ -9,7 +9,6 @@
  *      Purpose: This inherits Visitor and creates a messages total
  *
  */
-
 package minitwitter;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -25,18 +24,21 @@ public class MessagesTotal implements Visitor {
     @Override
     public void visit(Object n) {
         try {
-            User user = (User) ((DefaultMutableTreeNode) n).getUserObject();
-            total += user.getUniqueMessages().toArray().length;
-        } catch (Exception e){
-            
+            if ((User) ((DefaultMutableTreeNode) n).getUserObject() instanceof User) {
+                User user = (User) ((DefaultMutableTreeNode) n).getUserObject();
+                total += user.getUniqueMessages().toArray().length;
+            }
+        } catch (Exception e) {
+
         }
     }
-    
+
     /**
      * Returns the number of messages total
-     * @return 
+     *
+     * @return
      */
-    public int result(){
+    public int result() {
         return total;
     }
 

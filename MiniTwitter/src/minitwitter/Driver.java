@@ -10,8 +10,6 @@
  *      of the Admin UI.
  *
  */
-
-
 package minitwitter;
 
 import java.io.IOException;
@@ -22,16 +20,17 @@ import javax.swing.SwingUtilities;
  * @author Van Muse
  */
 public class Driver {
-    
-    public Driver(){
+
+    public Driver() {
     }
-        
+
     /**
      * Main for the whole program
+     *
      * @param args the command line arguments
      * @throws java.io.IOException
      */
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         // TODO code application logic here
         AdminUI s = AdminUI.getInstance();
         SwingUtilities.invokeLater(new Runnable() {
@@ -40,5 +39,5 @@ public class Driver {
                 s.setVisible(true);
             }
         });
-    } 
+    }
 }

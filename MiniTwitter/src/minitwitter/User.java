@@ -10,7 +10,6 @@
  *      user.
  *
  */
-
 package minitwitter;
 
 import javax.swing.DefaultListModel;
@@ -22,8 +21,8 @@ import javax.swing.DefaultListModel;
 public class User implements Observer, Subject {
 
     /**
-     * These variables are for name, the tweet
-     * a list for followers, following, and news feed.
+     * These variables are for name, the tweet a list for followers, following,
+     * and news feed.
      */
     private String name;
     private String tweet;
@@ -84,8 +83,8 @@ public class User implements Observer, Subject {
     public DefaultListModel<String> getFollowingListModel() {
         return this.following;
     }
-    
-    public DefaultListModel<String> getUniqueMessages(){
+
+    public DefaultListModel<String> getUniqueMessages() {
         return this.uniqueMessage;
     }
 
@@ -98,7 +97,7 @@ public class User implements Observer, Subject {
         setSub(user);
         user.attach(this);
     }
-        
+
     /**
      * This is for setting the name for the object
      *

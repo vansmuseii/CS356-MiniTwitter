@@ -10,7 +10,6 @@
  *      feedback from the users.
  *
  */
-
 package minitwitter;
 
 import java.util.Arrays;
@@ -28,30 +27,32 @@ public class PositivePercentage implements Visitor {
     @Override
     public void visit(Object n) {
         String[] positiveWords = {"good", "awesome", "great", "excellent"};
-        try{
-            User user = (User) ((DefaultMutableTreeNode) n).getUserObject();
-            Object arr[] = user.getUniqueMessages().toArray();
-            String[] messages = Arrays.copyOf(arr, arr.length, String[].class);
-            total += messages.length;
-            for (String key : positiveWords) {
-                for (String message : messages) {
-                    if (message.toLowerCase().contains(key)) {
-                        count++;
+        try {
+            if ((User) ((DefaultMutableTreeNode) n).getUserObject() instanceof User) {
+                User user = (User) ((DefaultMutableTreeNode) n).getUserObject();
+                Object arr[] = user.getUniqueMessages().toArray();
+                String[] messages = Arrays.copyOf(arr, arr.length, String[].class);
+                total += messages.length;
+                for (String key : positiveWords) {
+                    for (String message : messages) {
+                        if (message.toLowerCase().contains(key)) {
+                            count++;
+                        }
                     }
                 }
             }
-        }
-        catch (Exception e){
-            
+        } catch (Exception e) {
+
         }
     }
 
     /**
      * Returns the Positive percentage.
-     * @return 
+     *
+     * @return
      */
     public double result() {
-        return (count*100.0)/total;
+        return (count * 100.0) / total;
     }
 
 }

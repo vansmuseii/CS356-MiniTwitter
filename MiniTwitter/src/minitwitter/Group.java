@@ -9,7 +9,6 @@
  *      Purpose: This is supposed to create a Group
  *
  */
-
 package minitwitter;
 
 /**
@@ -17,7 +16,9 @@ package minitwitter;
  * @author Van Muse
  */
 public class Group {
+
     private String group;
+
     public Group(String name) {
         this.group = name;
     }

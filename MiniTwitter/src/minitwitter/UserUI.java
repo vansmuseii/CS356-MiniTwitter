@@ -10,7 +10,6 @@
  *      with the buttons
  *
  */
-
 package minitwitter;
 
 import javax.swing.JFrame;
@@ -20,24 +19,27 @@ import javax.swing.JOptionPane;
  *
  * @author Van Muse
  */
-
 public class UserUI extends javax.swing.JFrame {
+
     private User user;
     private TwitterTree tree;
+
     /**
      * Creates new form UserUI
      */
     public UserUI() {
         initComponents();
     }
+
     /**
-     * This is responsible for setting the user and the tree model,
-     * also puts the name of the user onto the title bar
-     * and sets the follower and tweet list.
+     * This is responsible for setting the user and the tree model, also puts
+     * the name of the user onto the title bar and sets the follower and tweet
+     * list.
+     *
      * @param mod
-     * @param user 
+     * @param user
      */
-    public UserUI(TwitterTree tree, User user){
+    public UserUI(TwitterTree tree, User user) {
         initComponents();
         this.tree = tree;
         this.user = user;
@@ -130,13 +132,13 @@ public class UserUI extends javax.swing.JFrame {
 
     private void followButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_followButtonActionPerformed
         String userID = userIDText.getText().trim();
-        User follower = (User)this.tree.getUser(userID);
+        User follower = (User) this.tree.getUser(userID);
         userIDText.setText("");
-        if(follower != null){
-            if(!user.getFollowingListModel().contains(follower.toString())&&
-                    user != follower){
-            user.follow(follower);}
-            else{
+        if (follower != null) {
+            if (!user.getFollowingListModel().contains(follower.toString())
+                    && user != follower) {
+                user.follow(follower);
+            } else {
                 JFrame frame = new JFrame();
                 JOptionPane.showMessageDialog(frame,
                         "Cannot add the same user",
